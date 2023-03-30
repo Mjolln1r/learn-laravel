@@ -16,6 +16,12 @@
             <input type="checkbox" class="form-check-input" id="exampleCheck1">
             <label class="form-check-label" for="exampleCheck1">Check me out</label>
         </div>
+        <select class="Category" aria-label="Category" name = "category_id">
+            <option selected>Category</option>
+            @foreach($categories as $category)
+            <option value="{{$category->id}}">{{$category->title}}</option>
+            @endforeach
+        </select>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 </div>

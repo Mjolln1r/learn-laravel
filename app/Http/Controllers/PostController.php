@@ -10,19 +10,27 @@ class PostController extends Controller
 {
     public function index()
     {
-        $categories = Category::find(1);
-        $post = Post::find(1);
-        dd($post->category);
+        $post = Post::all();
+
+        return view('post.index', compact('post'));
     }
 
     public function create()
     {
-        return view('post.create');
+        $categories = Category::all();
+        return view('post.create', compact('categories'));
     }
 
     public function store()
     {
-        dd(1111111);
+        $data = request()->validate([
+            'title' => 'string',
+            'content' => 'string',
+            'image' => 'string',
+            'category_id' => '',
+        ]);
+        Post::create($data);
+        return redirect()->route('post.index');
     }
 
     public function show(Post $post)

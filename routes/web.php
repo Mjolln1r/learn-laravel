@@ -17,18 +17,15 @@ Route::get('/', function () {
     return 'aaaaaaaaaaaa';
 });
 
-Route::get('/post', 'App\Http\Controllers\PostController@index')->name('post.index');
-Route::get('/main', 'App\Http\Controllers\MainController@index')->name('main.index');
-Route::get('/contacts', 'App\Http\Controllers\ContactController@index')->name('contact.index');
-Route::get('/about', 'App\Http\Controllers\AboutController@index')->name('about.index');
-
-Route::get('/post/create', 'App\Http\Controllers\PostController@create')->name('post.create');
-Route::post('/post', 'App\Http\Controllers\PostController@store')->name('post.store');
-Route::get('/post/{post}', 'App\Http\Controllers\PostController@show')->name('post.show');
+Route::group(['namespace' => 'App\Http\Controllers\Post'], function (){
+    Route::get('/post', 'IndexController')->name('post.index');
+    Route::get('/post/create', 'CreateController')->name('post.create');
 
 
-Route::get('/post/update', 'App\Http\Controllers\PostController@update');
-Route::get('/post/delete', 'App\Http\Controllers\PostController@delete');
-Route::get('/post/first_or_create', 'App\Http\Controllers\PostController@firstOrCreate');
-Route::get('/post/update_or_create', 'App\Http\Controllers\PostController@updateOrCreate');
+    Route::post('/post', 'StoreController')->name('post.store');
+    Route::get('/post/{post}', 'ShowController')->name('post.show');
+    Route::get('/post/{post}/edit', 'EditController')->name('post.edit');
+    Route::patch('/post/{post}', 'UpdateController')->name('post.update');
+    Route::delete('/post/{post}', 'DestroyController')->name('post.delete');
+});
 
